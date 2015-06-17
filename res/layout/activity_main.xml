@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal|center_vertical|fill_vertical"
+    android:orientation="horizontal" >
+
+    <Space
+        android:id="@+id/Space1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
+
+    <EditText
+        android:id="@+id/edit_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Space1"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/Space2"
+        android:layout_toRightOf="@+id/Space1"
+        android:layout_weight="1"
+        android:digits="1234567890"
+        android:ems="10"
+        android:hint="@string/edit_message"
+        android:inputType="phone" />
+
+    <Space
+        android:id="@+id/Space2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignBaseline="@+id/Space1"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/Button1" />
+
+    <Button
+        android:id="@+id/Button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Space1"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/Button2"
+        android:onClick="sendMessage"
+        android:text="Set" />
+
+    <Button
+        android:id="@+id/Button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Space1"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/button"
+        android:onClick="checkMessage"
+        android:text="Check" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Space1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:onClick="killAlarm"
+        android:text="Off" />
+
+    <EditText
+        android:id="@+id/edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_message"
+        android:layout_marginTop="15dp"
+        android:layout_toLeftOf="@+id/Button1"
+        android:ems="10"
+        android:digits="1234567890"
+        android:inputType="phone" 
+        android:hint="Edit Time" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/Button1"
+        android:layout_alignTop="@+id/edit_text"
+        android:layout_marginLeft="10dp"
+        android:onClick="changeTimer"
+        android:text="Set Time" />
+
+</RelativeLayout>
