@@ -82,6 +82,7 @@ public class MainActivity extends SensorActivity {
 		}
 		if((getRealTemperature()<=y) && y>0)
 		{
+			// add comment
 			alert();
 			alarm.setAlarm(getBaseContext());
 			return true;
