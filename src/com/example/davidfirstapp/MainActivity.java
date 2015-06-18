@@ -169,7 +169,6 @@ public class MainActivity extends SensorActivity {
 	    String message = editText.getText().toString();
 	    intent.putExtra(EXTRA_MESSAGE, message);
 	    check();
-	    startActivity(intent);
 	}
 	public void killAlarm(View view)
 	{
