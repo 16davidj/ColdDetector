@@ -35,14 +35,14 @@ public class Alarm extends BroadcastReceiver
      Intent i = new Intent(c, Alarm.class);
      PendingIntent pi = PendingIntent.getBroadcast(c, 0, i, 0);
      am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pi); // Millisec * Second * Minute
+     am.cancel(pi);
  }
  public void cancelAlarm(Context c)
  {
      AlarmManager alarmManager = (AlarmManager)c.getSystemService(Context.ALARM_SERVICE);
 	 Intent intent = new Intent(c, Alarm.class);
-     PendingIntent pi = PendingIntent.getBroadcast(c, 0, intent, 0);
+     PendingIntent pi = PendingIntent.getBroadcast(c, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
      alarmManager.cancel(pi);
+     pi.cancel();
  }
-
-
 }
