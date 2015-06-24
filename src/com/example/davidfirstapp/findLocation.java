@@ -36,14 +36,17 @@ public findLocation()
 {
 	StrictMode.setThreadPolicy(policy); 
 }
+//returns the variable longitude
 public double getLongitude()
 {
 	return longitude;
 }
+//returns latitude
 public double getLatitude()
 {
 	return latitude;
 }
+//returns a string of the temperature of the current location
 public String find_Location(Context con) {
 	String temp_c = "hi";
     Log.d("Find Location", "in find_location");
@@ -74,8 +77,8 @@ public String find_Location(Context con) {
     }
     return temp_c;
 }
-
-public String ConvertPointToLocation(double pointlat, double pointlog) {
+//Converts the latitude and longitude into a string location
+public String ConvertPointToLocation(double pointlat, double pointlog, Context con) {
 
     String address = "";
     Geocoder geoCoder = new Geocoder(con, Locale.getDefault());
@@ -95,7 +98,8 @@ public String ConvertPointToLocation(double pointlat, double pointlog) {
     }
     return address;
 }  
-
+//Adds the location's string to the url, which helps pull the information about the current
+//temperature of the location.
 public String  SendToUrl(String string) 
 {
     // TODO Auto-generated method stub
@@ -143,6 +147,4 @@ public String  SendToUrl(String string)
    }
    return str;
  } 
-
-   
 }
