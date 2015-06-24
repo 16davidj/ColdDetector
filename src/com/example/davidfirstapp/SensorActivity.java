@@ -1,5 +1,7 @@
 package com.example.davidfirstapp;
 
+import com.example.davidfirstapp.R;
+
 import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;
