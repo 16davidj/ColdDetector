@@ -1,5 +1,7 @@
 package com.example.davidfirstapp;
 
+import com.example.davidfirstapp.R;
+
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
@@ -14,7 +16,7 @@ public class ResetTemp extends MainActivity
 {
 
 	private static final View activity_display_message = null;
-
+	//Helps change the temperature the alarm is set for
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
