@@ -1,10 +1,20 @@
 package com.example.davidfirstapp;
+import java.util.List;
+
+import com.example.davidfirstapp.R;
+
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
@@ -23,8 +33,9 @@ public class MainActivity extends SensorActivity {
     public static final String PREFS_NAME = "Temperature";
     public static final String PREFS_NAME2 = "Timer";
     public int y = 5;
-
-    Alarm alarm = new Alarm();
+	private Context con;
+    private static Ringtone r;
+    Location location;
 	
     public void onReceive(Context context, Intent intent)
     {   
@@ -37,6 +48,7 @@ public class MainActivity extends SensorActivity {
     		return;
         }
     }
+    //Sets up a notification system whenever the temperature outside is lower than the standard temperature.
 	public void alert()
 	{
 		NotificationCompat.Builder mBuilder =
@@ -73,6 +85,8 @@ public class MainActivity extends SensorActivity {
 			y = Integer.parseInt(getStoredTime());
 		}
 	}
+	//This is the main method in determining whether the alarm rings or not. If the temperature is cooler than
+	//the set temperature, a ringtone is played.
 	public boolean check()
 	{
 		int y=0;
@@ -82,13 +96,16 @@ public class MainActivity extends SensorActivity {
 		}
 		if((getRealTemperature()<=y) && y>0)
 		{
-			// add comment
-			alert();
-			alarm.setAlarm(getBaseContext());
+		    Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+		    r = RingtoneManager.getRingtone(getBaseContext(), notification);
+		    //playing sound alarm
+		    r.play();
+		    alert();
 			return true;
 		}
 		return false;
 	}
+	//The method that allows the user to edit the standard temperature
 	public void edit()
 	{
 		SharedPreferences settings = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
@@ -113,6 +130,7 @@ public class MainActivity extends SensorActivity {
 		String Time = settings.getString("Timer", "DNE");
 		return Time;
 	}
+	//returns the temperature that the user inputted
 	public String getStoredTemperature()
 	{
 		// Get from the SharedPreferences
@@ -131,6 +149,7 @@ public class MainActivity extends SensorActivity {
 
 	}
 	@Override
+	//Determines what to do when different buttons are pressed
 	public boolean onOptionsItemSelected(MenuItem item) 
 	{
 	    // Handle presses on the action bar items
@@ -145,14 +164,7 @@ public class MainActivity extends SensorActivity {
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
-	public void changeTimer(View view)
-	{
-		Intent intent = new Intent(this, ResetTime.class);
-	    EditText editText = (EditText) findViewById(R.id.edit_text);
-	    String message = editText.getText().toString();
-	    intent.putExtra(EXTRA_MESSAGE2, message);
-	    startActivity(intent);
-	}
+	//Starts the activity in the ResetTemp class, which sets the alarm for the temperature entered
 	public void sendMessage(View view)
 	{
 		Intent intent = new Intent(this, ResetTemp.class);
@@ -162,6 +174,8 @@ public class MainActivity extends SensorActivity {
 	    edit();
 	    startActivity(intent);
 	}
+	//Starts the activity in the DisplayMessageActivity class, which displays numbers of the
+	//current temperatures around the phone, and the temperature the alarm is set for
 	public void checkMessage(View view)
 	{
 		Intent intent = new Intent(this, DisplayMessageActivity.class);
@@ -169,21 +183,41 @@ public class MainActivity extends SensorActivity {
 	    String message = editText.getText().toString();
 	    intent.putExtra(EXTRA_MESSAGE, message);
 	    check();
+	    startActivity(intent);
 	}
+	//Stops the ringtone
 	public void killAlarm(View view)
 	{
-		alarm.cancelAlarm(getBaseContext());
+		r.stop();
 	}
+	//Finds the temperature of the precise GPS location the phone is located in
 	public int getRealTemperature()
 	{
 		String real = loc.find_Location(getApplicationContext());
 		int y = Integer.parseInt(real);
 		return (int) ((1.8*y)+32.0);
 	}
-	public String getLocation()
+	//returns the location 
+	public String getLocation(Context con)
 	{
-		return loc.ConvertPointToLocation(loc.getLatitude(), loc.getLongitude());
+	    this.con = con;
+	    String location_context = Context.LOCATION_SERVICE;
+	    LocationManager locationManager = (LocationManager) con.getSystemService(location_context);
+	    List<String> providers = locationManager.getProviders(true);
+	    for (String provider : providers) {
+	        locationManager.requestLocationUpdates(provider, 1000, 0,new LocationListener() {
+
+	                public void onLocationChanged(Location location) {}
+
+	                public void onProviderDisabled(String provider) {}
+
+	                public void onProviderEnabled(String provider) {}
+
+	                public void onStatusChanged(String provider, int status,
+	                        Bundle extras) {}
+	            });
+	    location = locationManager.getLastKnownLocation(provider);
+        }
+		return loc.ConvertPointToLocation(location.getLatitude(), location.getLongitude(), this.getApplicationContext());
 	}
-	
-	
 }
