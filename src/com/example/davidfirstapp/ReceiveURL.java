@@ -11,7 +11,8 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.os.AsyncTask;
-
+//This class helps find the temperature of the phone's GPS location by parsing an XML file
+//that has the current temperatures of different locations. 
 public class ReceiveURL extends AsyncTask<String, Void, String> {
 	String str = "";
 	protected String doInBackground(String... loc) {
