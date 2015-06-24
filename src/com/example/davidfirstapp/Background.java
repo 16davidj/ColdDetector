@@ -7,12 +7,10 @@ import android.os.IBinder;
 
 public class Background extends Service
 {
-    Alarm alarm = new Alarm();
     public void onCreate()
     {
         super.onCreate();       
     }
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) 
 {
