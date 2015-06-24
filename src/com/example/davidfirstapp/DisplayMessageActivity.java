@@ -1,5 +1,7 @@
 package com.example.davidfirstapp;
 
+import com.example.davidfirstapp.R;
+
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
@@ -10,12 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-
-
 public class DisplayMessageActivity extends MainActivity {
 
 	private static final View activity_display_message = null;
-
+	//When this activity is called, it displays text that informs the user of the temperatures outside
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,7 +27,6 @@ public class DisplayMessageActivity extends MainActivity {
 		String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 		TextView textView = new TextView(this);
 	    textView.setTextSize(24);
-		check();
 		if(PREFS_NAME == null)
 		{
 			textView.setText("Please set a temperature");
@@ -36,7 +35,7 @@ public class DisplayMessageActivity extends MainActivity {
 		{
 		    textView.setText("The alarm is set for: " + getStoredTemperature() + "¡F" + "\n" + "Current ambient temperature: " + 
 			(int)(sensor.getAmbientTemperature())+ "¡F" + "\n" + "Current battery temperature: " +  (int)(sensor.getBatteryTemperature()) + "¡F" +
-			"\n" + "Current location and temperature: " + getLocation() + ": " + getRealTemperature()+"¡F");
+			"\n" + "Current location and temperature: " + getLocation(getApplicationContext()) + ": " + getRealTemperature()+"¡F");
 		}
 	    setContentView(textView);
 	}
