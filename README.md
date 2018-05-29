@@ -1,4 +1,5 @@
-# colddetector_v1
+# ColdDetector
+
 This application, ColdDetector, was a part of Santa Clara University's "Frugal Innovation
 Lab". The purpose of the app is to benefit the homeless with access to smartphones. 
 Specifically, the application alerts the homeless who sleep outside. Frequently, when
